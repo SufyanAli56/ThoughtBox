@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useNotes } from "./features/notes/useNotes";
 import { useChat } from "./features/chat/useChat";
 
@@ -8,6 +9,8 @@ import NoteForm from "./components/notes/NoteForm";
 function App() {
   const { notes, loading, user, login, logout, create, remove } = useNotes();
   const { messages, sendMessage } = useChat(notes);
+
+  const [isChatOpen, setIsChatOpen] = useState(false);
 
   // Loading
   if (loading) {
@@ -46,17 +49,41 @@ function App() {
             <NoteCard key={note.id} note={note} onDelete={() => remove(note.id)} />
           ))}
         </div>
+      </main>
 
-        {/* Chatbot */}
-        <div className="mt-12 bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-          <h2 className="text-lg font-semibold mb-4">Ask You 🤖</h2>
+      {/* Floating Chat Icon / Chat Window */}
+      {!isChatOpen && (
+        <button
+          onClick={() => setIsChatOpen(true)}
+          className="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-indigo-600 shadow-lg flex items-center justify-center text-white text-2xl hover:bg-indigo-700 transition-colors"
+          title="Chat with your notes"
+        >
+          💬
+        </button>
+      )}
 
-          <div className="space-y-3 mb-4 max-h-64 overflow-y-auto border p-3 rounded-lg">
+      {isChatOpen && (
+        <div className="fixed bottom-6 right-6 w-80 bg-white rounded-2xl shadow-xl flex flex-col overflow-hidden">
+          {/* Header */}
+          <div className="bg-indigo-600 text-white px-4 py-3 flex justify-between items-center">
+            <h2 className="font-semibold text-sm">Ask Your Notes 🤖</h2>
+            <button
+              onClick={() => setIsChatOpen(false)}
+              className="text-white font-bold text-lg"
+            >
+              ×
+            </button>
+          </div>
+
+          {/* Messages */}
+          <div className="flex-1 p-3 overflow-y-auto max-h-64 space-y-2">
             {messages.map((m, i) => (
               <div
                 key={i}
                 className={`p-2 rounded ${
-                  m.role === "user" ? "bg-indigo-50 text-indigo-700" : "bg-gray-100 text-gray-800"
+                  m.role === "user"
+                    ? "bg-indigo-50 text-indigo-700 text-right"
+                    : "bg-gray-100 text-gray-800 text-left"
                 }`}
               >
                 {m.text}
@@ -64,13 +91,14 @@ function App() {
             ))}
           </div>
 
-          <div className="flex gap-3">
+          {/* Input */}
+          <div className="flex gap-2 p-3 border-t border-gray-200">
             <input
               type="text"
               placeholder="Ask about your notes..."
-              className="flex-1 border p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              className="flex-1 border p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
               onKeyDown={(e) => {
-                if (e.key === "Enter") {
+                if (e.key === "Enter" && e.target.value.trim() !== "") {
                   sendMessage(e.target.value);
                   e.target.value = "";
                 }
@@ -81,16 +109,18 @@ function App() {
                 const input = document.querySelector(
                   'input[placeholder="Ask about your notes..."]'
                 );
-                sendMessage(input.value);
-                input.value = "";
+                if (input.value.trim() !== "") {
+                  sendMessage(input.value);
+                  input.value = "";
+                }
               }}
-              className="bg-indigo-600 text-white px-4 py-3 rounded-lg"
+              className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors"
             >
               Send
             </button>
           </div>
         </div>
-      </main>
+      )}
     </div>
   );
 }
