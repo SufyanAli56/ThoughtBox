@@ -9,12 +9,17 @@ Notes are cached locally, synced intelligently, and resolved automatically when 
 
 ## 🚀 Live Features
 
-- 📴 **Offline-First Experience**  
-- 🔄 Automatic Sync on Reconnect  
-- ⚡ Real-Time Updates (via Supabase Realtime)  
-- 🔐 Secure Authentication  
-- 🧠 Smart Conflict Resolution  
-- 🤖 **RAG-Powered Chatbot (ThoughtBot)**
+- 📴 **Offline-First Experience** – Write and access notes even when you’re offline  
+- 🔄 **Automatic Sync on Reconnect** – Changes sync automatically when the internet is back  
+- ⚡ **Real-Time Updates** – Instantly see changes via Supabase Realtime  
+- 🔐 **Secure Authentication** – Login via Supabase Auth with email/magic link  
+- 🧠 **Smart Conflict Resolution** – Handles concurrent edits gracefully  
+- 📝 **Create, Read, Update, Delete Notes** – Full CRUD functionality  
+- 📂 **Organize Notes** – Grid layout for easy navigation  
+- 🤖 **RAG-Powered Chatbot (ThoughtBot)** – Ask questions about your notes, summarize, or recall info instantly  
+- ✨ **Floating Chat Widget** – Minimal sticky icon that expands to a chatbot window  
+- 🏷 **Note Metadata** – Timestamps, IDs, and authorship  
+- ⚙ **Custom Offline Queue** – Queues edits while offline and applies them on reconnect  
 
 ---
 
@@ -35,15 +40,19 @@ This makes ThoughtBox:
 - Resilient  
 - Predictable  
 - Scalable  
-- Production-ready
+- Production-ready  
 
 ---
+
+[View the Demo](https://www.awesomescreenshot.com/video/49704855?key=7ce5cd27eeff431a58fc78dfbdbad5a4)
+
+
 
 ## 🧩 Tech Stack
 
 | Layer | Technology |
 |-------|------------|
-| Frontend | React |
+| Frontend | React + Tailwind CSS |
 | Backend | Supabase |
 | Database | PostgreSQL |
 | Auth | Supabase Auth |
@@ -58,14 +67,13 @@ This makes ThoughtBox:
 
 ThoughtBox follows a layered architecture:
 
-- **UI Layer** – React + Tailwind CSS  
-- **Application Layer** – Use cases & orchestration  
-- **Domain Layer** – Business logic & sync engine  
-- **Infrastructure Layer** – Supabase client + IndexedDB  
+- **UI Layer** – React components, Tailwind CSS, Chat widget  
+- **Application Layer** – Hooks, state management, and orchestration (`useNotes`, `useChat`)  
+- **Domain Layer** – Business logic, sync engine, conflict resolution  
+- **Infrastructure Layer** – Supabase client, IndexedDB wrapper  
 
-This separation ensures scalability and clean system boundaries.
+This separation ensures **scalability**, **maintainability**, and **clean system boundaries**.
 
 ---
 
 ## 🗂️ Project Structure
-
