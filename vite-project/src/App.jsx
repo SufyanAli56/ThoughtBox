@@ -24,7 +24,7 @@ function App() {
   // Not logged in
   if (!user) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="min-h-screen flex items-center justify-center bg-white">
         <button
           onClick={login}
           className="bg-indigo-600 text-white px-6 py-3 rounded-lg"
@@ -36,7 +36,7 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white">
       <Header onLogout={logout} />
 
       <main className="max-w-4xl mx-auto p-6 space-y-8">
